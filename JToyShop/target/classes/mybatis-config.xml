@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  <configuration>
+  	<typeAliases>
+  		<typeAlias type="mini.project.toy.vo.Member" alias="member"/>
+  		<typeAlias type="mini.project.toy.vo.Product" alias="product"/>
+  		<typeAlias type="mini.project.toy.vo.Cart" alias="cart"/>
+  		<typeAlias type="mini.project.toy.vo.Order" alias="order"/>
+  		<typeAlias type="mini.project.toy.vo.Reply" alias="reply"/>
+  	</typeAliases>
+  	
+  	<mappers>
+  		<mapper resource="mappers/memberMapper.xml"/>
+  		<mapper resource="mappers/productMapper.xml"/>
+  		<mapper resource="mappers/replyMapper.xml"/>
+  	</mappers>
+  </configuration>

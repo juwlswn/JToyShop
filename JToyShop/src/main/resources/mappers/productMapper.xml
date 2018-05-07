@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mini.project.toy.service.ProductMapper">
+  <insert id="insertProduct" parameterType="product">
+  insert into product(pcode,pname,num,price,category
+  <if test="originalfile != null">
+  , originalfile
+  </if>
+  <if test="savedfile != null">
+  , savedfile
+  </if>
+  ) values (
+  #{pcode}, #{pname}, #{num}, #{price}, #{category}
+  <if test="originalfile != null">
+  , #{originalfile}
+  </if>
+  <if test="savedfile != null">
+  , #{savedfile}
+  </if>
+  )
+  </insert>
+  <update id="updateProduct" parameterType="product">
+  update 
+  		product
+	  	set
+	  		, pname = #{pname}
+	  		, num = #{num}
+	  		, price = #{price}
+	  		, category = #{category}
+	  		, originalfile = #{originalfile}
+	  		, savedfile = #{savedfile}
+	  	where 
+	  		pcode = #{pcode}
+  </update>
+  
+   <select id="getcartList" parameterType="string" resultType="cart">
+  select * from cart where id = #{id}
+  </select>
+  
+  <delete id="deleteProduct" parameterType="product">
+  delete product where pcode = #{pcode}
+  </delete>
+  
+  <update id="addCount">
+  update
+		product
+		set
+			pcount = pcount + 1
+		where
+			pcode = #{pcode}
+  </update>
+  
+  <update id="againPcount">
+  update
+		product
+		set
+			pcount = pcount - 1
+		where
+			pcode = #{pcode}
+  </update>
+  
+  <update id="disCount">
+   update
+		product
+		set
+			num = num - 1
+		where
+			pcode = #{pcode}
+  </update>
+  
+    <update id="againCount">
+   update
+		product
+		set
+			num = num + 1
+		where
+			pcode = #{pcode}
+  </update>
+  
+  <select id="getProductList" parameterType="string" resultType="product">
+  	select * from product
+  	<if test="value != null">
+  	where category = #{value}
+  	</if>
+  </select>
+  
+  <select id="getallproduct" resultType="product">
+  select * from product
+  </select>
+  
+  <select id="getProduct" parameterType="string" resultType="product">
+  select * from product where pcode = #{pcode}
+  </select>
+  <insert id="insertCart" parameterType="cart">
+  insert into cart(cno,pname,id,numcount,price,totalprice,pcode)
+  values(cart_seq.nextval, #{pname}, #{id}, #{numcount} , #{price}, #{totalprice},#{pcode})
+  </insert>
+  <delete id="deleteCart">
+  delete cart where cno = #{cno}
+  </delete>
+  
+  <select id="getCart" resultType="cart" parameterType="string">
+  select * from cart where cno = #{cno}
+  </select>
+  
+  <insert id="orderProduct" parameterType="order">
+  insert into orderlist(ono,id,phone,address,pname,numcount,price,totalprice,type,pcode)
+  values(orderlist_seq.nextval,#{id} ,#{phone} ,#{address} ,#{pname}, #{numcount}, #{price}, #{totalprice}, #{type}, #{pcode})
+  </insert>
+  
+  <select id="getOrderList" resultType="order" parameterType="string">
+  select * from orderlist where id = #{id}
+  </select>
+  
+  <delete id="orderCancel">
+  delete orderlist where ono = #{ono}
+  </delete>
+  
+  <select id="getProductCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			product
+	</select>
+ 
+</mapper>
